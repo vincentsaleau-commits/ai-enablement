@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "support-ticket-triage": {
+      "type": "stdio",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "support_triage.server"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "SUPPORT_EXPORT_PATH": "D:\\PATH\\TO\\support-export.csv",
+        "SUPPORT_REVIEW_LOG_PATH": "D:\\PATH\\TO\\triage-decisions.jsonl"
+      }
+    }
+  }
+}
