@@ -25,37 +25,25 @@ Answer:
 - What would you measure instead to know if AI is creating value?
 - Where would you focus first, and why?
 
-### Stated goal
-** $35k/month of productive AI usage is achievable or not?
-- Company: 200 employees
-- 60% of all usage comes from 20 people.
+### Is this "on track"? What's the real story behind the 75%?
 
-Assume that productive AI usage comes from these 20 people, and they face the problem of running out of tokens after just one week.
-If all 200 employees worked at the same intensity as these 20 people, the maximum monthly cost of AI usage would be:
-(365 days a year / 12 months / 7 days a week) * ($10k / 200 employees) * 20 employees = $43k/month.
-Since $35k/month is less than $43k/month, the target should be achievable.
+**1. Is this "on track"?**
+**No, it is not on track.**
+- **Activity is not value:** 75% weekly active users (WAU) means about 150 of 200 staff touched an AI tool in a given week. However, the most common tasks are shallow conveniences ("rewrite this email", "summarize this doc"). Without baseline measurements of hours saved, cycle time reduction, or output quality, there is no evidence this activity translates to business value.
+- **Spend is a cost, not productivity:** Targeting "$35k/month of productive use" confuses operating expense with productivity. The current $10k/month is an input cost. If the 20 power users' spend rate (~$300/person/month) were replicated across all 200 staff, monthly spend would reach $60,000/month. While reaching $35k/month in consumption is mechanically achievable (scaling token allowances or user seats), spending budget on unguided prompts is not a proxy for generating economic return.
+- **Declining adoption trend:** If 75% represents a 4-week average with an initial Week 1 spike of near-100% curiosity/onboarding participation, subsequent weeks decline to ~66% (~133 active staff: `(100% + 66% + 66% + 66%) / 4 = 75%`). Usage is shrinking toward a core group rather than expanding company-wide.
 
-**100% weekly usage is archievable or not?
-- Company: 200 employees
-- Most common use cases: "Rewrite this email" and "Summarize this document"
-- Three departments: Near-zero usage after Week 1
-- Weekly active users: 75%
-
-This means:
-75% = (100% + 66% + 66% + 66%) / 4
-
-Week 1: 100% — 200 active users
-Week 2: 66% — 133 active users
-Week 3: 66% — 133 active users
-Week 4: 66% — 133 active users
-
-### Is this "on track"?
-
-No. Usage is declining over the course of the month, from 100% in Week 1 to 66% in subsequent weeks.
+**2. What's the real story behind the 75%?**
+- **Extreme concentration:** 60% of all usage and spend ($6,000/month) is driven by just 20 people (10% of staff), leaving the remaining 180 employees accounting for only $4,000/month (~$22/person/month).
+- **Early departmental abandonment:** 3 entire departments fell to near-zero usage after Week 1. This reveals that:
+  1. Many employees may run out of token allowances early in the week or month;
+  2. The generic tools failed to provide domain-specific value for their day-to-day workflows; or
+  3. AI was only utilized during temporary project kickoff/planning phases.
+- The headline 75% WAU masks deep departmental disengagement and a polarized workforce where most employees either do not use AI or only use it superficially.
 
 ### What would you measure instead to know if AI is creating value?
 
-Measuring token exhaustion, 100% WAU, or hitting a $35k spend target measures **resource consumption and input cost**, not economic value. To determine whether AI creates real business value, measure:
+Measuring token consumption, 100% WAU, or reaching a $35k spend target measures **resource consumption and input cost**, not economic value. To determine whether AI creates real business value, measure:
 
 1. **Workflow velocity and cycle time:** Reduction in end-to-end turnaround time on core business processes (e.g. support ticket resolution time, report drafting turnaround, PR review latency) compared to verified pre-AI baselines.
 2. **Quality, accuracy, and error rates:** First-contact resolution rate, policy violation/rework rate, defect density in code, and customer satisfaction. (Generating wrong answers faster destroys value).
@@ -65,13 +53,19 @@ Measuring token exhaustion, 100% WAU, or hitting a $35k spend target measures **
 
 ### Where would you focus first, and why?
 
-To achieve the goal, I would first analyze how the 20 employees who account for 60% of AI usage use AI, then adopt their practices as the company's working culture.
+I would focus simultaneously on two complementary fronts:
 
-The rationale is that these 20 employees provide a foundation for ensuring that everyone in the company creates value.
+1. **Analyze the 20 power users to extract real patterns and establish culture:**
+   - **Why:** These 20 users represent 60% of usage and hold both the highest potential leverage and the highest risk.
+   - **Action:** Analyze how these 20 employees work with AI. Codify and institutionalize genuine high-ROI practices into team-wide templates and tools to build a productive AI culture, while identifying and pruning wasteful prompting loops or unreviewed automations.
+   - **Caution on efficiency:** The goal must be ensuring staff continuously create genuine business value, not merely consuming tokens continuously. Some employees may complete their work in a single focused burst rather than needing constant token usage.
 
-### Discussion
+2. **Diagnose and reactivate the 3 silent departments:**
+   - **Why:** Departments dropping to near-zero after Week 1 indicates systemic onboarding failure, tooling mismatch, or lack of domain relevance.
+   - **Action:** Interview leads and staff to uncover blockers (hallucinations, irrelevant prompts, data privacy concerns). Pick **one high-frequency, high-friction operational bottleneck** in one team and build a bounded, reliable workflow with clear success criteria.
 
-This approach is intended to ensure that everyone continuously creates value for the company, rather than necessarily maximizing efficiency. For example, some employees may complete all their work within one week and run out of tokens, just like the 20 heavy users. In such cases, the decline in AI usage may not indicate a lack of productivity; employees may simply have completed their assigned work and no longer need to use AI.
+3. **Transition from open chat to embedded workflows:**
+   - Stop encouraging open-ended prompt experimentation as a goal. Focus enablement on structured, repeatable workflows (such as customer support queue triage, finance reconciliation, or test generation) where inputs, policies, and human review gates are explicitly governed.
 
 ## Part 2: Understand and Build
 
