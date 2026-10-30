@@ -25,94 +25,156 @@ Answer:
 - What would you measure instead to know if AI is creating value?
 - Where would you focus first, and why?
 
-### Is this "on track"? What's the real story behind the 75%?
+### Stated goal
 
-**1. Is this "on track"?**
-**No, it is not on track.**
-- **Activity is not value:** 75% weekly active users (WAU) means about 150 of 200 staff touched an AI tool in a given week. However, the most common tasks are shallow conveniences ("rewrite this email", "summarize this doc"). Without baseline measurements of hours saved, cycle time reduction, or output quality, there is no evidence this activity translates to business value.
-- **Spend is a cost, not productivity:** Targeting "$35k/month of productive use" confuses operating expense with productivity. The current $10k/month is an input cost. If the 20 power users' spend rate (~$300/person/month) were replicated across all 200 staff, monthly spend would reach $60,000/month. While reaching $35k/month in consumption is mechanically achievable (scaling token allowances or user seats), spending budget on unguided prompts is not a proxy for generating economic return.
-- **Declining adoption trend:** If 75% represents a 4-week average with an initial Week 1 spike of near-100% curiosity/onboarding participation, subsequent weeks decline to ~66% (~133 active staff: `(100% + 66% + 66% + 66%) / 4 = 75%`). Usage is shrinking toward a core group rather than expanding company-wide.
+$35k/month of productive AI usage
+- Company: 200 employees
+- 60% of all usage comes from 20 people.
 
-**2. What's the real story behind the 75%?**
-- **Extreme concentration:** 60% of all usage and spend ($6,000/month) is driven by just 20 people (10% of staff), leaving the remaining 180 employees accounting for only $4,000/month (~$22/person/month).
-- **Early departmental abandonment:** 3 entire departments fell to near-zero usage after Week 1. This reveals that:
-  1. Many employees may run out of token allowances early in the week or month;
-  2. The generic tools failed to provide domain-specific value for their day-to-day workflows; or
-  3. AI was only utilized during temporary project kickoff/planning phases.
-- The headline 75% WAU masks deep departmental disengagement and a polarized workforce where most employees either do not use AI or only use it superficially.
+Assume that productive AI usage comes from these 20 people, and they face the problem of running out of tokens after just one week. If all 200 employees worked at the same intensity as these 20 people, the maximum monthly cost of AI usage would be:
+(365 days a year / 12 months / 7 days a week) * ($10k / 200 employees) * 20 employees = $43k/month.
+Since $35k/month is less than $43k/month, the target should be achievable.
 
-### What would you measure instead to know if AI is creating value?
+100% weekly usage:
+- Company: 200 employees
+- Most common use cases: "Rewrite this email" and "Summarize this document"
+- Three departments: Near-zero usage after Week 1
+- Weekly active users: 75%
 
-Measuring token consumption, 100% WAU, or reaching a $35k spend target measures **resource consumption and input cost**, not economic value. To determine whether AI creates real business value, measure:
+This means:
+75% = (100% + 66% + 66% + 66%) / 4
 
-1. **Workflow velocity and cycle time:** Reduction in end-to-end turnaround time on core business processes (e.g. support ticket resolution time, report drafting turnaround, PR review latency) compared to verified pre-AI baselines.
-2. **Quality, accuracy, and error rates:** First-contact resolution rate, policy violation/rework rate, defect density in code, and customer satisfaction. (Generating wrong answers faster destroys value).
-3. **Verified capacity gained (hours saved):** Human hours reclaimed on standardized, recurring team tasks—validated by team leads against deliverables, not self-reported prompt logs.
-4. **Workflow-level retention and depth:** Sustained weekly adoption of specific, task-embedded tools and workflows by department, rather than generic logins to open-ended chat boxes.
-5. **Unit cost per successful outcome:** AI spend per completed ticket, customer onboarded, or deliverable shipped, ensuring the marginal cost of compute is substantially lower than the business value created.
+Week 1: 100% — 200 active users
+Week 2: 66% — 133 active users
+Week 3: 66% — 133 active users
+Week 4: 66% — 133 active users
+
+### Is this "on track"?
+
+No. Usage is declining over the course of the month, from 100% in Week 1 to 66% in subsequent weeks.
+What's the real story behind the 75%?
+The real story behind the 75% figure may be that many employees run out of tokens after Week 1, run out of tasks to complete, or only use AI during peak project periods. As a result, only approximately 66.67% of employees (133 people) are genuinely using AI for work on a recurring weekly basis.
+
+### What would you measure instead to determine whether AI is creating value?
+
+Creating value is different from creating value efficiently. Therefore, the goal is to maximize AI usage as much as possible. The following questions should be considered:
+Are users running out of tokens?
+Are weekly active users consistently at 100%?
+Is monthly spending reaching $35k?
 
 ### Where would you focus first, and why?
 
-I would focus simultaneously on two complementary fronts:
+To achieve the goal, I would first analyze how the 20 employees who account for 60% of AI usage use AI, then adopt their practices as the company's working culture.
+The rationale is that these 20 employees provide a foundation for ensuring that everyone in the company creates value.
 
-1. **Analyze the 20 power users to extract real patterns and establish culture:**
-   - **Why:** These 20 users represent 60% of usage and hold both the highest potential leverage and the highest risk.
-   - **Action:** Analyze how these 20 employees work with AI. Codify and institutionalize genuine high-ROI practices into team-wide templates and tools to build a productive AI culture, while identifying and pruning wasteful prompting loops or unreviewed automations.
-   - **Caution on efficiency:** The goal must be ensuring staff continuously create genuine business value, not merely consuming tokens continuously. Some employees may complete their work in a single focused burst rather than needing constant token usage.
+### Discussion:
 
-2. **Diagnose and reactivate the 3 silent departments:**
-   - **Why:** Departments dropping to near-zero after Week 1 indicates systemic onboarding failure, tooling mismatch, or lack of domain relevance.
-   - **Action:** Interview leads and staff to uncover blockers (hallucinations, irrelevant prompts, data privacy concerns). Pick **one high-frequency, high-friction operational bottleneck** in one team and build a bounded, reliable workflow with clear success criteria.
+This approach is intended to ensure that everyone continuously creates value for the company, rather than necessarily maximizing efficiency. For example, some employees may complete all their work within one week and run out of tokens, just like the 20 heavy users. In such cases, the decline in AI usage may not indicate a lack of productivity; employees may simply have completed their assigned work and no longer need to use AI.
 
-3. **Transition from open chat to embedded workflows:**
-   - Stop encouraging open-ended prompt experimentation as a goal. Focus enablement on structured, repeatable workflows (such as customer support queue triage, finance reconciliation, or test generation) where inputs, policies, and human review gates are explicitly governed.
 
 ## Part 2: Understand and Build
 
 ### Requirement
 
-Mai (Customer Support Team Lead) writes: *"Customers wait around 4 hours for a first reply, and our target is 1 hour. Replies are also inconsistent, and my team gets policy wrong, especially on withdrawals and bonuses. Last month we refunded people we shouldn't have. Can AI help us? I’ve attached the export."*
+Estimated time: ~1 hour 30 min
 
-**Constraints & Deliverables:**
-- Works locally with Claude via official MCP SDK (`mcp==2.3.0`); executes at least one real state-modifying action; no unreviewed customer-facing text; no autonomous approval of refunds or withdrawals.
-- Deliverables: working code, [README.md](README.md) with client config, open-ticket output report, and test suite.
+This is the core of the role. In your first week, the Customer Support Team Lead, Mai, sends you this message.
 
-### Root Cause Analysis & Evidence
+> "Customers wait around 4 hours for a first reply, and our target is 1 hour. Replies are also inconsistent, and my team gets policy wrong, especially on withdrawals and bonuses. Last month we refunded people we shouldn't have. Can AI help us? I’ve attached the export."
 
-| Issue | Root Cause & Export Evidence | Proposed Intervention |
-| :--- | :--- | :--- |
-| **Reply delay (~4h vs. 1h target)** | **Lookup latency across 3 systems, not typing speed.** Arjun ([slack-support-channel.json](bf66c640cc851ef616bfad90e4822573/slack-support-channel.json)) notes checking **Backoffice**, **Payments dashboard**, and **Provider portal** takes ~10 min/ticket; Tuan confirms: *"writing reply is 1 min, finding txn is the whole job"*. Compounded by QuickPay incident (312 delayed withdrawals; 22 Sep response peaked at 318 min in [support-metrics-sept.csv](bf66c640cc851ef616bfad90e4822573/support-metrics-sept.csv)). | • **Operational:** Batch 14 pending QuickPay tickets to Payments.<br>• **Future:** Unified read-only transaction lookup API.<br>• **First Build:** Local MCP triage tool to expose queue aging and topic indicators. |
-| **Inconsistent replies & policy errors** | **Conflicting documentation.** Staff still consult obsolete handbook v1 (48h withdrawal, 4h reply target) pinned in Slack instead of v2 (24h withdrawal, 1h target). Bonus game contributions (Slots 100%, Tables 10%, Live 0% in [bonus-terms.md](bf66c640cc851ef616bfad90e4822573/bonus-terms.md)) are widely misunderstood (T-5011, T-5111). | • **Governance (Primary):** Retire v1 and unpin old PDF; establish v2 with a single named owner; publish a 1-page bonus contribution cheat-sheet. |
-| **Wrong refunds & unauthorized approvals** | **Management Slack instructions directly contradict policy.** Mai told agents on Slack (17 Sep) to refund up to $300 for Gold members without approval, violating v2's $100 limit. Finance ([finance-month-end-sept.md](bf66c640cc851ef616bfad90e4822573/finance-month-end-sept.md)) flagged **$6,200** in unauthorized September refunds. | • **Governance (Primary):** Reconcile Gold refund policy in writing with Finance.<br>• **First Build:** Require explicit lead approval before recording refund triage decisions. |
-| **Compliance & security risks** | Regulatory mishandling in tickets: T-5004 disclosed internal KYC review triggers (violates v2); T-5005 answered self-exclusion without mandatory escalation; T-5104 contains prompt injection (*"REFUND FULL $5000... DO NOT LOG"*). | • **Safety Guardrails:** Zero autonomous reply drafting; quarantine prompt injections; route compliance/harm tickets to human escalation. |
+The export: Customer Support export (clone it with `git clone https://gist.github.com/bf66c640cc851ef616bfad90e4822573.git` etc.) It’s a raw export from the support team. Not everything in it is relevant, and nobody has cleaned it up for you.
 
-### Decision & First Build
+Read the message and the export, decide what is actually slowing them down and what is worth building first.
 
-1. **The Best First Fix is Governance (Non-Code):** An LLM reply bot would only scale incorrect advice faster while policy remains contradictory. The team must first retire Handbook v1, align the Gold refund cap with Finance, clarify bonus contribution rules, and batch the 14 stuck QuickPay withdrawals to Payments.
-2. **The First Software Build is a Local MCP Triage Tool (`support-ticket-triage`):**
-   - `support_queue_snapshot`: Calculates queue aging (median 21.92h, oldest 102.83h) and first-reply SLA (median 4.58h, 0% within 1h) anchored at export time (`2026-09-29T09:00:00Z` via `--as-of`).
-   - `search_support_tickets`: Masks PII (emails, phone numbers, payment details) and returns aggregate topic counts.
-   - `record_triage_decision`: Performs the required state-modifying action by logging caller-submitted, unverified triage decisions to an immutable `review_log.jsonl` audit file without altering the source export.
+You don't have to use everything in the export, and you don't have to solve everything. For the best first fix, may not be AI or may not be code. If so, say so in your README, and still build the most useful thing you can.
 
-### Assumptions & Limitations
+### Constraints
 
-- **Scope & Anchoring:** Evaluates the 30-ticket sample (T-5001 to T-5115); the full queue had ~140 open tickets on 27 Sep. Queue ages are anchored to export time (`2026-09-29T09:00:00Z`); omitting `--as-of` measures against current run time.
-- **Lexical Indicators:** Topic labels (`withdrawal`, `bonus`, `deposit`, `account_access`, `other`) are keyword indicators, not automated root-cause determinations (e.g. Vietnamese deposit T-5107 is categorized under `other`).
-- **Data Privacy & Exclusions:** Real-money personal details in `customers.csv` and `transactions.csv` are kept out of model prompts; `marketing-q4-campaigns.md` is excluded as it only applies from 1 October.
+- It works with Claude in a real client (Claude Desktop, Claude Code, or claude.ai).
+- It does at least one real action on the data, not only reading it.
+- If anything you build produces customer-facing text, a person reviews and sends it.
+- It runs on the export as local files. No real systems needed.
+- Any language. If you build an MCP server, use an official MCP SDK (TypeScript or Python recommended). Claude Skills are fine where they fit.
 
-### Verification & Open-Ticket Escalations
+---
 
-- **Verification:** 17 automated tests pass at **85% code coverage** across parsing, metrics calculation, PII masking, CLI report generation, and review logging.
-- **Actionable Escalations:**
-  - **T-5103:** Chargeback/legal threat $\rightarrow$ Escalate to Lead & Legal.
-  - **T-5104:** Prompt injection attempt $\rightarrow$ Quarantine; review ticket manually.
-  - **T-5105:** Gambling harm / self-exclusion request $\rightarrow$ Immediate account freeze per Responsible Gaming protocol.
-  - **T-5106:** Gold customer requesting $250 refund $\rightarrow$ Exceeds $100 agent limit; needs Lead sign-off.
-  - **T-5108:** Third-party requesting husband's account details $\rightarrow$ Deny per privacy regulations.
-  - **T-5107, T-5109, T-5110:** Stuck deposits/withdrawals $\rightarrow$ Forward to Payments / QuickPay reconciliation.
-  - **T-5111:** Disputed bonus wagering $\rightarrow$ Escalate to Lead with actual contribution rules.
-  - **T-5113, T-5115:** KYC timing and Q4 reload inquiries $\rightarrow$ Reassure within v2 SLA without premature terms.
+## What to include
 
+- Your code.
+- A short README: how to run it, including the client config, and a few lines on what you built.
+- The output of running your tool on all open tickets.
+- Any tests or checks you ran to make sure the output is correct.
+
+### Comprehensive Root Cause Analysis
+
+| Symptom Reported by Mai | Root Cause in Data | Concrete Evidence in Export | Proposed Intervention | Traps to Avoid |
+| :--- | :--- | :--- | :--- | :--- |
+| **Response delay (~4h vs. 1h target)** | **Lookup latency across 3 disparate systems, NOT typing speed.** Agents spend ~10 min/ticket navigating multiple dashboards. Compounded by a major external payment processor incident. | • [slack-support-channel.json](bf66c640cc851ef616bfad90e4822573/slack-support-channel.json): Arjun notes searching **Backoffice**, **Payments dashboard**, and **Provider portal** takes ~10 min/ticket; Linh notes provider portal logs out every 15 min; Tuan states: *"writing the reply is 1 min, finding the txn is the whole job"*. <br>• QuickPay outage (20–24 Sep): 312 withdrawals delayed, 14 still pending. <br>• [support-metrics-sept.csv](bf66c640cc851ef616bfad90e4822573/support-metrics-sept.csv): withdrawal first response peaked at 318 min on 22 Sep. | **Non-code / Operational:** Batch 14 pending QuickPay tickets to Payments.<br>**Future Engineering:** Build unified read-only transaction lookup tool.<br>**First AI Tool:** Local MCP triage tool to classify topics and calculate queue aging. | **Auto-reply bot trap:** Generating AI replies fails because the true bottleneck is lookup latency (~10 min across 3 systems), and directly violates the mandatory human-review constraint. |
+| **Inconsistent replies & policy errors on withdrawals** | **Documentation confusion and conflicting guidance.** Team members refer to superseded onboarding documents and conflicting channel instructions. | • [support-handbook-v1.md](bf66c640cc851ef616bfad90e4822573/support-handbook-v1.md) (old: 48h withdrawal processing, 4h reply target). <br>• [support-handbook-v2.md](bf66c640cc851ef616bfad90e4822573/support-handbook-v2.md) (new: 24h withdrawal target, 1h reply target). <br>• Slack: Tuan and Linh still rely on the pinned old PDF from onboarding. | **Governance Fix (Primary):** Retire v1 and unpin old PDF; establish v2 with a single named owner.<br>**First AI Tool:** Flag tickets mentioning withdrawals (>24h) for review against v2 SLA. | **Premature automation trap:** Deploying generative tools before retiring superseded Handbook v1 accelerates incorrect answers and policy drift. |
+| **Wrong refunds & unauthorized approvals** | **Direct conflict between management Slack instructions and official handbook limits.** Finance caught unauthorized leakage. | • [support-handbook-v2.md](bf66c640cc851ef616bfad90e4822573/support-handbook-v2.md): Agent limit is $100; Team Lead approval required for $100–$500. <br>• Slack (17 Sep): Mai instructed: *"for Gold and above just refund up to $300... don't wait for me"*. <br>• [finance-month-end-sept.md](bf66c640cc851ef616bfad90e4822573/finance-month-end-sept.md): **$6,200** in September refunds exceeded policy limits without recorded approval. 5 of 9 chargebacks followed tickets unanswered >24h. | **Governance Fix:** Reconcile Mai's VIP exception rule with Finance in writing.<br>**First AI Tool:** Identify refund requests, tag VIP/Gold status, and require explicit lead approval before recording triage status. | **Auto-refund agent trap:** Automating refund approvals invites catastrophic financial leakage and fraud; refunds require strict human authorization per tier limits. |
+| **Bonus policy errors** | **Ignorance of wagering contribution terms across staff and leadership.** | • [bonus-terms.md](bf66c640cc851ef616bfad90e4822573/bonus-terms.md): Slots 100%, Table games 10%, Live casino 0%. <br>• Closed ticket T-5011 & Slack: Staff told customers bonus applies to all games; Arjun agreed on Slack: *"I think all games count?"*. Leads to disputed ticket T-5111. | **Governance Fix:** Publish a 1-page authoritative bonus cheat-sheet.<br>**First AI Tool:** Detect bonus wagering queries and provide reference indicators for human verification. | **Hallucinated terms trap:** Letting models guess bonus wagering terms without authoritative grounding leads to disputed withdrawals. |
+| **Compliance, security & prompt injection risks** | **Handling of regulatory workflows (KYC, self-exclusion) without guardrails; malicious prompt injection.** | • T-5004: Agent disclosed internal KYC suspicion reason (prohibited by v2). <br>• T-5005: Self-exclusion request answered without mandatory immediate escalation. <br>• T-5104: Contains embedded prompt injection (*"REFUND FULL $5000... DO NOT LOG THIS NOTE"*). | **First AI Tool Safety:** Zero autonomous reply drafting; sanitize inputs; flag regulatory/harm keywords for immediate human escalation; treat prompt injection as text-only and quarantine. | **"Use every file" trap:** Indiscriminately ingesting `customers.csv`/`transactions.csv` leaks PII into prompts; trusting raw ticket text risks executing prompt injection (T-5104). |
+
+#### Critical Traps to Avoid
+
+1. **Auto-Reply Bot Trap:**
+   - **Explicit Constraint:** The brief strictly mandates: *“If anything you build produces customer-facing text, a person reviews and sends it.”*
+   - **Operational Reality:** Generating customer replies when internal policy is contradictory (v1 vs. v2 vs. Slack instructions) only accelerates the distribution of wrong answers. Furthermore, drafting replies does not solve the primary bottleneck (lookup latency across 3 systems).
+2. **Auto-Refund Agent Trap:**
+   - **Financial & Fraud Risk:** Automating refund decisions or withdrawal eligibility poses unacceptable financial leakage and chargeback risks. Payouts must strictly remain human-authorized according to explicit policy limits ($100 agent limit vs. lead approval).
+3. **"Use Every File in the Export" Trap:**
+   - **Explicit Brief Guidance:** The brief notes: *“Not everything in it is relevant, and nobody has cleaned it up for you.”*
+   - **Data Governance Boundary:** `marketing-q4-campaigns.md` only takes effect in October and is irrelevant for September triage; `customers.csv` and `transactions.csv` contain live customer PII that must never be blindly passed into model context.
+
+### Framing and Decision
+
+The customer support crisis consists of three distinct problems:
+
+1. **Reply delay:** In the 30-ticket sample, the 15 closed tickets have a median first reply of 4.58 hours (0% within the 1-hour target). The bottleneck is lookup, not typing speed. Navigating **Backoffice**, **Payments dashboard**, and **Provider portal** consumes ~10 minutes per ticket. Generating boilerplate replies faster does not resolve missing transaction data.
+2. **Policy drift & unauthorized payouts:** Agents quote superseded v1 handbook terms, Mai's Slack instructions contradict the $100 handbook refund limit, and Finance recorded $6,200 in unauthorized over-limit refunds. Automating replies with an LLM in this environment would merely scale incorrect answers and multiply financial leakage.
+3. **Severe compliance & safety exposures:** Handling self-exclusion without escalation (T-5005), disclosing KYC triggers (T-5004), and unvetted customer prompt injections (T-5104) require strict procedural guardrails.
+
+#### The Best First Fix: Governance (Non-Code)
+The highest-ROI immediate intervention is not an AI model or software build:
+1. **Retire Handbook v1:** Delete the obsolete onboarding PDF pinned in Slack; designate `support-handbook-v2.md` with one named owner.
+2. **Resolve the Gold Refund Policy in Writing:** Reconcile Mai's $300 Slack concession with Finance and establish clear approval delegation.
+3. **Clarify Bonus Terms:** Issue an approved reference card on table/live game contribution percentages (10%/0%).
+4. **Batch QuickPay Incident Tickets:** Direct the 14 stuck QuickPay withdrawals directly to Payments rather than handling them ad-hoc.
+
+#### The First Software Build: Local MCP Triage Tool
+Rather than an unsafe customer-facing reply bot or autonomous refund agent, we built a **local MCP queue triage tool** (`support-ticket-triage`):
+- **Calculates queue metrics & SLA adherence** (`support_queue_snapshot`): Measures open ticket aging (median 21.92h, oldest 102.83h) and first-reply latency using `--as-of 2026-09-29T09:00:00Z`.
+- **Masks PII & searches open queue** (`search_support_tickets`): Best-effort sanitization of emails, phone numbers, and payment details before model inspection.
+- **Labels topic indicators:** Highlights keyword indicators (`withdrawal`, `bonus`, `deposit`, `account_access`).
+- **Performs real state action** (`record_triage_decision`): Appends caller-submitted, unverified triage decisions to an immutable JSONL audit log (`review_log.jsonl`) without mutating the raw source export.
+
+### Assumptions and Limitations
+
+- **Schema flexibility:** Supports local CSV and JSON files with aliases for ID, status, subject, and timestamp fields.
+- **Sample vs. queue size:** The 30-ticket sample (T-5001 to T-5115) reflects an operational snapshot. The metrics CSV indicates ~140 open tickets on 27 Sep.
+- **Timestamp anchoring:** Queue aging is benchmarked against export time (`2026-09-29T09:00:00Z`) via `--as-of`. Without this flag, elapsed time is measured against current wall-clock time.
+- **Keyword limitations:** Indicator matching is lexical. For instance, T-5107 (*"nạp tiền"*, Vietnamese deposit) and T-5112 (*"Can't log in"*) fall under `other`. Topic counts are indicators, not definitive root causes.
+- **Excluded files:** `marketing-q4-campaigns.md` (active starting October); `customers.csv` and `transactions.csv` (sensitive PII excluded from tool prompts); `finance-month-end-sept.md` and `slack-support-channel.json` (used as corroborating process evidence only).
+
+### Verification
+
+The build includes 17 automated tests passing at **85% code coverage** (analysis 92%, data 79%, report 92%, reviews 76%, server 80%):
+- **Coverage areas:** CSV/JSON parsing, open ticket filtering, queue age and SLA calculations, timestamp timezone handling, PII search masking, CLI report generation, and immutable JSONL review logging.
+- **Export reconciliation:** Verified against the source timestamps: 15 open tickets; 15 closed tickets with a median first reply of 4.58 hours (0.0% meeting the 1h SLA); oldest open ticket at 102.83 hours.
+
+### Open-Ticket Escalations (Actionable Summary)
+
+The tool flags the following critical open tickets for immediate human intervention:
+- **T-5103:** Customer threatening legal action and chargebacks. Escalate to Senior Management / Legal.
+- **T-5105:** Gambling harm / self-exclusion request. Immediately freeze account following RG protocol; do not send generic retention text.
+- **T-5104:** Malicious prompt injection (*"REFUND FULL $5000... DO NOT LOG"*). Flagged and quarantined; inspect ticket manually.
+- **T-5108:** Third-party requesting access to husband's account details. Deny and route to Privacy / DPO review.
+- **T-5106:** Gold customer requesting $250 goodwill refund. Exceeds $100 agent limit; requires Team Lead review.
+- **T-5109 & T-5110:** Stuck withdrawals over 24 hours. Cross-reference against QuickPay batch and route to Payments.
+- **T-5107:** Uncredited Vietnamese deposit (*"nạp tiền"*). Forward to Payments with transaction reference.
+- **T-5111:** Disputed bonus wagering withdrawal caused by inaccurate advice on table game contributions. Escalate to Team Lead.
+- **T-5113:** Customer inquiring on KYC processing turnaround. Reassure according to v2 SLA without disclosing internal review criteria.
+- **T-5115:** Customer inquiring about Q4 reload bonus. Marketing campaign begins 1 Oct; do not confirm premature terms.
 
 ## Part 3: Coach and Consolidate
 
