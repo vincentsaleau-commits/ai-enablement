@@ -1,96 +1,83 @@
-# Support Ticket Triage
+# Support RAG
 
-A local-first support operations tool for the 99Tech AI Enablement challenge. It reads a CSV or JSON export, measures the open queue and first-reply SLA where timestamps exist, surfaces keyword-based topic indicators, searches open tickets with common contact details masked, and appends caller-submitted, unverified triage decisions to a separate JSONL audit log.
+A local tool for the support queue. It reads tickets from the export, decides escalation and routing with fixed rules, and asks a local model to write an internal note for a reviewer. It never contacts customers, issues refunds, or changes accounts.
 
-It does not draft or send customer replies, decide bonus or withdrawal eligibility, issue refunds, or modify the source export. The first proposed fix is operational visibility and a caller-submitted, unverified policy/process classification. The supplied export contains two handbook versions and bonus terms, but the tool does not read them; automating eligibility decisions from them would be unsafe and premature.
+## Run
 
-## Requirements
+Requirements: Python 3.11+, Ollama on `127.0.0.1` with `nomic-embed-text` and `qwen2.5:3b`, and the export in `bf66c640cc851ef616bfad90e4822573/`.
 
-- Python 3.11 or newer on `PATH`
-- Claude Desktop for the MCP workflow
+0. Clone the export into the project folder (one time). It is a separate git repo, so it is not part of this one:
 
-## Install and run
+   ```bash
+   git clone https://gist.github.com/bf66c640cc851ef616bfad90e4822573.git bf66c640cc851ef616bfad90e4822573
+   ```
 
-From the project directory in PowerShell:
+1. Install the Ollama models once, with Ollama running:
 
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install -e ".[dev]"
+   ```bash
+   ollama pull nomic-embed-text
+   ollama pull qwen2.5:3b
+   ollama list   # both models should appear
+   ```
+
+2. Set up the Python environment:
+
+   ```bash
+   python -m venv .venv
+   source .venv/Scripts/activate
+   python -m pip install -e ".[dev]"
+   ```
+
+3. Run the batch on the open tickets:
+
+```bash
+OLLAMA_GENERATION_MODEL=qwen2.5:3b OLLAMA_EMBEDDING_MODEL=nomic-embed-text \
+python -m support_rag.cli \
+  --export bf66c640cc851ef616bfad90e4822573/tickets.json \
+  --knowledge-dir bf66c640cc851ef616bfad90e4822573 \
+  --output review/support_rag_r1_open.jsonl
 ```
 
-Put the support export in a local, access-controlled folder. Supported input is `.csv` or `.json`. CSV needs ID, status, and subject columns; JSON must be a list of ticket objects or an object containing a `tickets`, `data`, `results`, or `rows` list. Common aliases are normalized in [support_triage/data.py](support_triage/data.py). Created/first-reply timestamps are optional; without them the corresponding timing metric is reported as unavailable. The raw export remains where it is.
+The output is a JSONL file with one record per open ticket. The `review/` folder is created if it does not exist. Each record is `review_status: unverified` and `requires_human_review: true`. `review/` is listed in `.gitignore`, so these files stay on this machine and are not committed.
 
-Generate a Markdown report from all open tickets:
+## How a ticket is handled
 
-```powershell
-python -m support_triage.report --export "D:\data\support-export.csv" --output "artifacts\open_tickets_report.md"
+1. **Rules decide** (`support_rag/rules.py`), from the raw ticket text and `customers.csv`: injected instructions, gambling harm, self-exclusion, legal or chargeback threats, suspected fraud, another person's account, account reopening, refunds above $100 or with no amount, account access, bonus withdrawals, and pending or missing withdrawals (routed to Payments).
+2. **Policy is limited per ticket.** Only the handbook sections the rules allow are retrieved. Escalated tickets read the escalation section.
+3. **The model writes a note** from those sections only. It is not allowed to decide eligibility, refunds, or exceptions. Injected tickets skip the model.
+4. **Checks** drop a note that has numbers, timelines, or decision phrases not found in the sources, copies the customer's message, or reads like a letter. A dropped note is replaced with a fixed message.
+5. **KYC status** from `customers.csv` is returned on every record. A non-verified status is also added to the note. The KYC review reason is for the reviewer only and never goes into a customer draft.
+6. **Customer drafts** come from fixed templates and never promise an outcome. Escalated tickets get only an acknowledgement.
+7. Every record is `review_status: unverified` and `requires_human_review: true`. A person checks, edits, and sends.
+
+## Results (30 sample tickets, 3 runs)
+
+- Routes are identical across runs.
+- Note status is stable for 26 of 30 tickets. Three tickets had an error in at least one run (T-5005, T-5106, T-5110). The results are in the comparison table in `ANSWERS.md`.
+
+## Data handling
+
+- Policy sources: `support-handbook-v2.md` and `bonus-terms.md` only. Handbook v1, Slack, marketing, and finance files are not used.
+- Customer and transaction data are used as case context, with personal data masked before any text reaches the model.
+- Output stays on this machine. The model runs locally through Ollama.
+
+## Tests
+
+```bash
+python -m pytest tests -q
 ```
 
-Pass `--as-of` with the export's own timestamp so queue ages and replies are measured at the export time rather than the run time. Naive timestamps are read as UTC. The report header states the measurement time.
+The tests cover the rules, the note checks, KYC and self-exclusion handling, retrieval limits, and the evaluation scorer. They use mocked Ollama calls and verify execution, not policy accuracy.
 
-```powershell
-python -m support_triage.report --export "bf66c640cc851ef616bfad90e4822573\tickets.json" --as-of "2026-09-29T09:00:00Z" --output "artifacts\open_tickets_report.md"
-```
+## Limits
 
-All tickets are loaded so that the first-reply sample includes closed tickets. Only open tickets are listed.
+- Rules are English-first. Vietnamese keywords cover deposit, withdrawal, and bonus only. Other languages escalate by default.
+- Templates are in English. Drafts in other languages need a person to rewrite them.
+- "Pending" and "not arrived" are the withdrawal delay signal. The tool does not know the actual status; Payments does.
+- Thresholds ($100, 24 hours, 3 business days) are copied from handbook v2, not computed from timestamps.
+- The handbook has no threshold for KYC checks on large withdrawals, so that case is not automated.
+- The model can still write a grounded-looking note that is wrong. The checks catch numbers, timelines, and decision phrases, not every wrong topic.
 
-Run the MCP server directly:
+## Judgement
 
-```powershell
-$env:SUPPORT_EXPORT_PATH = "D:\data\support-export.csv"
-$env:SUPPORT_REVIEW_LOG_PATH = "D:\data\triage-decisions.jsonl"
-python -m support_triage.server
-```
-
-The MCP tools are:
-
-- `support_queue_snapshot`: open queue size/status, median queue age, oldest open ticket age (no ID), first-reply median and one-hour SLA rate using only replies at or before the measurement time, plus keyword topic indicators.
-- `search_support_tickets`: returns aggregate counts (matched ticket count and topic indicators) only. No ticket IDs, subjects, or message text are returned to the MCP client.
-- `record_triage_decision`: append a caller-submitted category/disposition, rationale, reviewer name, and timestamp to a JSONL file separate from the export. Records are marked `review_status: unverified`.
-
-## Claude Desktop (Windows)
-
-Merge this entry into `%APPDATA%\Claude\claude_desktop_config.json`, replacing the paths with absolute paths on your machine. Preserve any existing `mcpServers` entries. The environment values are local paths; don't commit real exports or review logs.
-
-```json
-{
-  "mcpServers": {
-    "support-ticket-triage": {
-      "command": "D:\\Projects\\personal\\AI Enablement\\.venv\\Scripts\\python.exe",
-      "args": ["-m", "support_triage.server"],
-      "cwd": "D:\\Projects\\personal\\AI Enablement",
-      "env": {
-        "SUPPORT_EXPORT_PATH": "D:\\data\\support-export.csv",
-        "SUPPORT_REVIEW_LOG_PATH": "D:\\data\\triage-decisions.jsonl"
-      }
-    }
-  }
-}
-```
-
-Fully quit and restart Claude Desktop after editing the config. The MCP server uses stdio; it writes logs to stderr, not stdout.
-
-## Safety and data handling
-
-- No network calls, database, or live support-system credentials are used.
-- MCP tool outputs contain aggregates only, so ticket text and IDs do not reach the MCP client. Full ticket detail stays in the locally generated Markdown report.
-- The Markdown report also masks common contact details in ticket subjects. Ticket IDs remain present to support reconciliation; store generated reports as sensitive data.
-- Queue metrics are derived from supplied timestamps and may be biased by missing records, timezone quality, or export scope. The report includes sample counts and does not infer a cause from correlation.
-- Topic labels are keyword indicators, not verified root causes. Bonus/withdrawal policy decisions remain with a trained reviewer and approved policy source.
-- The review tool records a caller-submitted note. The `reviewer` name and any approval are unverified: the tool does not authenticate the reviewer. Records are labelled `unverified` and are not proof of human approval. The MCP client's own approval prompts are the only confirmation step. The tool appends to a separate audit log and never alters the input export. Treat the log as sensitive operational data.
-- Keep raw exports, `.env` files, review logs, and generated ticket reports out of source control.
-
-## Checks
-
-```powershell
-python -m pytest --cov=support_triage --cov-report=term-missing
-```
-
-The test suite uses synthetic fixtures only (17 tests, 85% coverage).
-
-Real-export run: the export is in the local folder `bf66c640cc851ef616bfad90e4822573/` (a git clone, gitignored, not committed). `artifacts/open_tickets_report.md` was generated from `tickets.json` with `--as-of 2026-09-29T09:00:00Z`. It covers 15 open tickets from a 30-ticket sample; the export README says it is not the full queue. The first-reply sample is 15 closed tickets, with a median of 4.58 hours and 0% within one hour. The export is fictional but is still kept out of the repo.
-
-## MCP concepts in this build
-
-Claude is the MCP host/client. It discovers the server's typed tool schemas, chooses a tool based on the user's request, and sends a structured call over stdio. The server validates inputs and executes local Python functions; tool results return to Claude for interpretation. MCP standardizes discovery and invocation, not the correctness or authority of business decisions. The human review gate and local-only boundary are therefore part of this tool's design, not something MCP itself guarantees.
+I would not let a model decide refunds or eligibility from ticket text. The export contains a ticket that tries to override the assistant, and a model would have to be trusted to ignore it. Rules a person can read are the better trade here.

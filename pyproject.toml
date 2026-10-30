@@ -3,9 +3,9 @@ requires = ["setuptools>=75"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "support-ticket-triage"
+name = "support-ticket-rag"
 version = "0.1.0"
-description = "Local-first MCP tools for support ticket queue analysis and human review"
+description = "Local Ollama RAG for support ticket suggestions with mandatory human review"
 requires-python = ">=3.11"
 dependencies = ["mcp==2.3.0"]
 
@@ -17,10 +17,10 @@ pythonpath = ["."]
 testpaths = ["tests"]
 
 [tool.setuptools.packages.find]
-include = ["support_triage*"]
+include = ["support_rag*"]
 
 [tool.coverage.run]
-source = ["support_triage"]
+source = ["support_rag"]
 branch = true
 
 [tool.coverage.report]

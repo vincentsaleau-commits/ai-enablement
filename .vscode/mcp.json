@@ -1,13 +1,19 @@
 {
   "servers": {
-    "support-ticket-triage": {
+    "local-support-rag": {
       "type": "stdio",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["-m", "support_triage.server"],
+      "args": [
+        "-m",
+        "support_rag.server"
+      ],
       "cwd": "${workspaceFolder}",
       "env": {
-        "SUPPORT_EXPORT_PATH": "D:\\PATH\\TO\\support-export.csv",
-        "SUPPORT_REVIEW_LOG_PATH": "D:\\PATH\\TO\\triage-decisions.jsonl"
+        "SUPPORT_EXPORT_PATH": "${workspaceFolder}\\bf66c640cc851ef616bfad90e4822573\\tickets.json",
+        "SUPPORT_KNOWLEDGE_DIR": "${workspaceFolder}\\bf66c640cc851ef616bfad90e4822573",
+        "SUPPORT_RAG_OUTPUT_PATH": "${workspaceFolder}\\review\\triage_suggestions.jsonl",
+        "OLLAMA_EMBEDDING_MODEL": "nomic-embed-text",
+        "OLLAMA_GENERATION_MODEL": "qwen2.5:3b"
       }
     }
   }
